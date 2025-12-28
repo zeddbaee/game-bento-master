@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bento Master - Bekal Sekolah</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style-bento.css">
+</head>
+
+<body class="h-screen w-full overflow-hidden flex flex-col items-center justify-center text-gray-800">
+
+    <!-- Game Container -->
+    <div id="game-container"
+        class="relative w-full max-w-4xl h-full md:h-[90vh] bg-white md:rounded-3xl shadow-2xl flex flex-col overflow-hidden hidden">
+
+        <!-- Header - Full Width -->
+        <div class="bg-red-500 text-white p-3 flex justify-between items-center shadow-md z-10 w-full">
+            <div class="bg-red-700 px-3 py-1 rounded-full">
+                <span class="text-xs text-red-200">SKOR</span>
+                <span id="score-display" class="font-bold ml-1 text-lg">0</span>
+            </div>
+            <h1 class="font-bold text-xl tracking-wide">🍱 Bento Master</h1>
+            <div class="bg-red-700 px-3 py-1 rounded-full">
+                <span class="text-xs text-red-200">WAKTU</span>
+                <span id="timer-display" class="font-bold ml-1 text-lg font-mono">60</span>
+            </div>
+        </div>
+
+        <!-- Main Content - Two Column Layout -->
+        <div class="flex-1 flex flex-row bg-orange-50 overflow-hidden">
+
+            <!-- LEFT SIDE - Request, Hint & Bento Box -->
+            <div class="w-1/2 flex flex-col p-4 border-r border-orange-200">
+
+                <!-- Kid Request -->
+                <div class="flex items-center justify-center space-x-4 mb-4">
+                    <div class="text-5xl">🧒</div>
+                    <div
+                        class="bg-white border-2 border-red-200 p-3 rounded-tr-2xl rounded-br-2xl rounded-bl-2xl shadow-sm relative">
+                        <div
+                            class="absolute top-3 -left-2 w-4 h-4 bg-white border-l-2 border-b-2 border-red-200 transform rotate-45">
+                        </div>
+                        <p class="text-xs text-gray-400 font-bold uppercase mb-1">Request:</p>
+                        <p id="order-text" class="text-red-600 font-bold text-lg leading-tight">Menu Sehat</p>
+                    </div>
+                </div>
+
+                <!-- Hint Button -->
+                <div class="flex justify-center mb-4">
+                    <button onclick="toggleRecipe()"
+                        class="bg-yellow-400 hover:bg-yellow-500 text-yellow-900 px-4 py-2 rounded-full shadow text-sm font-bold z-20 flex items-center gap-2 transition">
+                        <span>❔</span> Lihat Contekan
+                    </button>
+                </div>
+
+                <!-- The Bento Box -->
+                <div class="flex-1 flex items-center justify-center relative">
+                    <!-- Box Container -->
+                    <div id="bento-container" class="bento-box w-64 h-64 transition-transform duration-300">
+                        <div class="bento-inner grid grid-cols-2 grid-rows-2 gap-2">
+                            <!-- Slots 0-3 -->
+                            <div onclick="removeFood(0)"
+                                class="food-slot flex items-center justify-center text-4xl cursor-pointer relative"
+                                id="slot-0"></div>
+                            <div onclick="removeFood(1)"
+                                class="food-slot flex items-center justify-center text-4xl cursor-pointer relative"
+                                id="slot-1"></div>
+                            <div onclick="removeFood(2)"
+                                class="food-slot flex items-center justify-center text-4xl cursor-pointer relative"
+                                id="slot-2"></div>
+                            <div onclick="removeFood(3)"
+                                class="food-slot flex items-center justify-center text-4xl cursor-pointer relative"
+                                id="slot-3"></div>
+                        </div>
+                    </div>
+
+                    <!-- Feedback Popup -->
+                    <div id="feedback-popup"
+                        class="absolute inset-0 flex items-center justify-center pointer-events-none z-30 opacity-0 transition-opacity duration-300">
+                        <div class="bg-white/90 px-6 py-4 rounded-2xl shadow-xl transform scale-110">
+                            <span id="feedback-text" class="text-4xl font-bold">👍</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tip Text -->
+                <p class="text-xs text-center text-gray-400 mt-2">Klik makanan di kotak untuk menghapus</p>
+            </div>
+
+            <!-- RIGHT SIDE - Food Menu & Buttons -->
+            <div class="w-1/2 flex flex-col p-4">
+
+                <!-- Food Inventory -->
+                <div class="flex-1 flex flex-col justify-center">
+                    <p class="text-sm text-center text-gray-500 mb-4 font-bold">🍽️ Pilih Bahan Makanan</p>
+                    <div class="grid grid-cols-4 gap-3">
+                        <button onclick="addFood('nasi')"
+                            class="food-btn bg-gray-50 border-2 border-gray-200 rounded-xl p-3 flex flex-col items-center hover:border-red-400">
+                            <span class="text-3xl">🍚</span>
+                            <span class="text-xs mt-1 text-gray-600 font-bold">Nasi</span>
+                        </button>
+                        <button onclick="addFood('telur')"
+                            class="food-btn bg-yellow-50 border-2 border-yellow-200 rounded-xl p-3 flex flex-col items-center hover:border-red-400">
+                            <span class="text-3xl">🥚</span>
+                            <span class="text-xs mt-1 text-gray-600 font-bold">Telur</span>
+                        </button>
+                        <button onclick="addFood('sosis')"
+                            class="food-btn bg-red-50 border-2 border-red-200 rounded-xl p-3 flex flex-col items-center hover:border-red-400">
+                            <span class="text-3xl">🐙</span>
+                            <span class="text-xs mt-1 text-gray-600 font-bold">Sosis</span>
+                        </button>
+                        <button onclick="addFood('ayam')"
+                            class="food-btn bg-orange-50 border-2 border-orange-200 rounded-xl p-3 flex flex-col items-center hover:border-red-400">
+                            <span class="text-3xl">🍗</span>
+                            <span class="text-xs mt-1 text-gray-600 font-bold">Ayam</span>
+                        </button>
+                        <button onclick="addFood('brokoli')"
+                            class="food-btn bg-green-50 border-2 border-green-200 rounded-xl p-3 flex flex-col items-center hover:border-red-400">
+                            <span class="text-3xl">🥦</span>
+                            <span class="text-xs mt-1 text-gray-600 font-bold">Sayur</span>
+                        </button>
+                        <button onclick="addFood('tomat')"
+                            class="food-btn bg-red-50 border-2 border-red-200 rounded-xl p-3 flex flex-col items-center hover:border-red-400">
+                            <span class="text-3xl">🍅</span>
+                            <span class="text-xs mt-1 text-gray-600 font-bold">Tomat</span>
+                        </button>
+                        <button onclick="addFood('sushi')"
+                            class="food-btn bg-blue-50 border-2 border-blue-200 rounded-xl p-3 flex flex-col items-center hover:border-red-400">
+                            <span class="text-3xl">🍣</span>
+                            <span class="text-xs mt-1 text-gray-600 font-bold">Sushi</span>
+                        </button>
+                        <button onclick="addFood('apel')"
+                            class="food-btn bg-red-50 border-2 border-red-200 rounded-xl p-3 flex flex-col items-center hover:border-red-400">
+                            <span class="text-3xl">🍎</span>
+                            <span class="text-xs mt-1 text-gray-600 font-bold">Apel</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Control Buttons -->
+                <div class="mt-4 flex gap-3">
+                    <button onclick="resetBento()"
+                        class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-600 font-bold py-3 rounded-xl transition text-lg">
+                        Ulang ↺
+                    </button>
+                    <button onclick="checkOrder()"
+                        class="flex-[2] bg-green-500 hover:bg-green-600 text-white font-bold py-3 rounded-xl shadow-lg transform active:scale-95 transition text-lg">
+                        Bungkus!
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recipe Modal -->
+        <div id="recipe-modal" class="absolute inset-0 modal-bg z-50 hidden flex items-center justify-center p-6">
+            <div class="bg-white w-full max-w-sm rounded-2xl p-6 relative shadow-2xl transform transition-all">
+                <button onclick="toggleRecipe()"
+                    class="absolute top-3 right-4 text-gray-400 hover:text-red-500 text-2xl font-bold">&times;</button>
+                <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                    <span>📖</span> Menu Bekal
+                </h2>
+                <div class="space-y-3 overflow-y-auto max-h-[60vh] pr-2" id="recipe-list-content">
+                    <!-- Recipes injected here -->
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Start Screen -->
+    <div id="start-screen"
+        class="fixed inset-0 bg-red-500 flex flex-col items-center justify-center text-white p-6 z-50">
+        <div class="text-8xl mb-6 animate-bounce">🍱</div>
+        <h1 class="text-5xl font-bold mb-2 text-center drop-shadow-md">Bento Master</h1>
+        <p class="text-red-100 mb-8 text-center max-w-xs text-lg">Susun bekal sekolah sesuai permintaan anak. Urutan
+            tidak masalah, yang penting isinya lengkap!</p>
+        <button onclick="startGame()"
+            class="bg-white text-red-600 font-bold text-xl py-4 px-12 rounded-full shadow-lg hover:scale-105 transition transform border-b-4 border-red-200">
+            MULAI MASAK
+        </button>
+    </div>
+
+    <!-- Game Over Screen -->
+    <div id="game-over-screen"
+        class="fixed inset-0 bg-gray-900/95 flex flex-col items-center justify-center text-white p-6 z-50 hidden">
+        <div class="text-6xl mb-4">🔔</div>
+        <h1 class="text-4xl font-bold mb-2">Jam Makan Siang!</h1>
+        <p class="text-gray-300 mb-4">Total Bekal Terkirim:</p>
+        <div id="final-score" class="text-7xl font-bold text-yellow-400 mb-8">0</div>
+        <button onclick="startGame()"
+            class="bg-green-500 text-white font-bold text-lg py-3 px-10 rounded-full shadow-lg hover:bg-green-600 transition border-b-4 border-green-700">
+            Buat Lagi
+        </button>
+    </div>
+
+    <script src="func-bento.js"></script>
+</body>
+
+</html>
