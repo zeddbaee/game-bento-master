@@ -11,11 +11,9 @@
 
 <body class="h-screen w-full overflow-hidden flex flex-col items-center justify-center text-gray-800">
 
-    <!-- Game Container -->
     <div id="game-container"
         class="relative w-full max-w-4xl h-full md:h-[90vh] bg-white md:rounded-3xl shadow-2xl flex flex-col overflow-hidden hidden">
 
-        <!-- Header - Full Width -->
         <div class="bg-red-500 text-white p-3 flex justify-between items-center shadow-md z-10 w-full">
             <div class="bg-red-700 px-3 py-1 rounded-full">
                 <span class="text-xs text-red-200">SKOR</span>
@@ -28,13 +26,9 @@
             </div>
         </div>
 
-        <!-- Main Content - Two Column Layout -->
         <div class="flex-1 flex flex-row bg-orange-50 overflow-hidden">
 
-            <!-- LEFT SIDE - Request, Hint & Bento Box -->
             <div class="w-1/2 flex flex-col p-4 border-r border-orange-200">
-
-                <!-- Kid Request -->
                 <div class="flex items-center justify-center space-x-4 mb-4">
                     <div class="text-5xl">🧒</div>
                     <div
@@ -47,7 +41,6 @@
                     </div>
                 </div>
 
-                <!-- Hint Button -->
                 <div class="flex justify-center mb-4">
                     <button onclick="toggleRecipe()"
                         class="bg-yellow-400 hover:bg-yellow-500 text-yellow-900 px-4 py-2 rounded-full shadow text-sm font-bold z-20 flex items-center gap-2 transition">
@@ -55,12 +48,9 @@
                     </button>
                 </div>
 
-                <!-- The Bento Box -->
                 <div class="flex-1 flex items-center justify-center relative">
-                    <!-- Box Container -->
                     <div id="bento-container" class="bento-box w-64 h-64 transition-transform duration-300">
                         <div class="bento-inner grid grid-cols-2 grid-rows-2 gap-2">
-                            <!-- Slots 0-3 -->
                             <div onclick="removeFood(0)"
                                 class="food-slot flex items-center justify-center text-4xl cursor-pointer relative"
                                 id="slot-0"></div>
@@ -76,7 +66,6 @@
                         </div>
                     </div>
 
-                    <!-- Feedback Popup -->
                     <div id="feedback-popup"
                         class="absolute inset-0 flex items-center justify-center pointer-events-none z-30 opacity-0 transition-opacity duration-300">
                         <div class="bg-white/90 px-6 py-4 rounded-2xl shadow-xl transform scale-110">
@@ -85,14 +74,10 @@
                     </div>
                 </div>
 
-                <!-- Tip Text -->
                 <p class="text-xs text-center text-gray-400 mt-2">Klik makanan di kotak untuk menghapus</p>
             </div>
 
-            <!-- RIGHT SIDE - Food Menu & Buttons -->
             <div class="w-1/2 flex flex-col p-4">
-
-                <!-- Food Inventory -->
                 <div class="flex-1 flex flex-col justify-center">
                     <p class="text-sm text-center text-gray-500 mb-4 font-bold">🍽️ Pilih Bahan Makanan</p>
                     <div class="grid grid-cols-4 gap-3">
@@ -139,7 +124,6 @@
                     </div>
                 </div>
 
-                <!-- Control Buttons -->
                 <div class="mt-4 flex gap-3">
                     <button onclick="resetBento()"
                         class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-600 font-bold py-3 rounded-xl transition text-lg">
@@ -153,7 +137,6 @@
             </div>
         </div>
 
-        <!-- Recipe Modal -->
         <div id="recipe-modal" class="absolute inset-0 modal-bg z-50 hidden flex items-center justify-center p-6">
             <div class="bg-white w-full max-w-sm rounded-2xl p-6 relative shadow-2xl transform transition-all">
                 <button onclick="toggleRecipe()"
@@ -162,14 +145,12 @@
                     <span>📖</span> Menu Bekal
                 </h2>
                 <div class="space-y-3 overflow-y-auto max-h-[60vh] pr-2" id="recipe-list-content">
-                    <!-- Recipes injected here -->
                 </div>
             </div>
         </div>
 
     </div>
 
-    <!-- Start Screen -->
     <div id="start-screen"
         class="fixed inset-0 bg-red-500 flex flex-col items-center justify-center text-white p-6 z-50">
         <div class="text-8xl mb-6 animate-bounce">🍱</div>
@@ -182,7 +163,6 @@
         </button>
     </div>
 
-    <!-- Game Over Screen -->
     <div id="game-over-screen"
         class="fixed inset-0 bg-gray-900/95 flex flex-col items-center justify-center text-white p-6 z-50 hidden">
         <div class="text-6xl mb-4">🔔</div>
